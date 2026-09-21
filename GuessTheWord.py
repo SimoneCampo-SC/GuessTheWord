@@ -55,7 +55,7 @@ class Player(Game):
         }
         """
         # if there are no known letters, then initial pattern is built
-        if knownLetters == None:
+        if knownLetters is None:
             for i in range(wordLength):
                 pattern += "_"
         else:
@@ -77,25 +77,25 @@ class Player(Game):
     - dictionary (optional), if no dictionary (i.e., initial state) it creates an empty one
     - words (optional), if no words then all the words in the Game dictionary are passed
     """
-    def setDictionary(self, Game, pattern, dict = {}, words=[]):
-        """
-        dict = {
-            [PATTERN], [ITEMS] 
-        }
-        """
+    def setDictionary(self, Game, pattern, word_families=None, words=None):
+        if word_families is None:
+            word_families = {}
+    
+        if words is None:
+            words = []
         # Add every word in the dictionary that satisfies the user game pattern
         
-        # when dict is empty, we load all the words from the file
-        if not dict:
+        # when word_families is empty, we load all the words from the file
+        if not word_families:
             for word in Game.dictionary:
                 # the length of the word is random, so we only need those words that match with that length
                 if self.isValidPattern(word, pattern):
-                    dict.setdefault(pattern, []).append(word)
+                    word_families.setdefault(pattern, []).append(word)
         else:
             for word in words:
                 if self.isValidPattern(word, pattern):
-                    dict.setdefault(pattern, []).append(word)
-        return dict
+                    word_families.setdefault(pattern, []).append(word)
+        return word_families
     
     def getWordFamilies(self):
         for key in self.wordFamily.keys():
