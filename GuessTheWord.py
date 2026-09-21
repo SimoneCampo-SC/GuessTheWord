@@ -8,14 +8,12 @@ class Game():
             self.dictionary = self.readFile('dictionary.txt')
         else:
             self.dictionary = ["ally", "beta", "cool", "deal", "else", "good"]
-
+        
     def readFile(self, fileName):
-        words = []
-        __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
-        file = open(os.path.join(__location__, fileName), 'r')
-        words = file.read().split('\n')
-        file.close()
-        return words
+        file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), fileName)
+    
+        with open(file_path, "r", encoding="utf-8") as file:
+            return file.read().splitlines()
 
 class Player(Game):
     wordLength = 0
@@ -292,7 +290,7 @@ class GuessTheWord():
         discovered_words = set()
         win = False
         while True:
-            os.system('clear')
+            os.system('cls' if os.name == 'nt' else 'clear')
             print("Hello!, and welcome to the Guess the Word game!")
             print("Please, choose the difficulty:")
             difficulty = input(" - Type 'E' for EASY, \n - Type 'H' for HARD\nYour choice: ").upper()
@@ -304,7 +302,7 @@ class GuessTheWord():
         Player = Player(Game)
 
         while round <= Player.totalRounds and win == False:
-            os.system('clear')
+            os.system('cls' if os.name == 'nt' else 'clear')
             if difficulty == "H":
                 print("Mode: HARD")
             else:
@@ -352,7 +350,7 @@ class GuessTheWord():
                     win = True
                 else:
                     round += 1
-        os.system('clear')
+        os.system('cls' if os.name == 'nt' else 'clear')
         if win == True:
             print(f"Congratulations!\nSurprisingly you managed to beat me. The guessed word is '{Player.chooseWord()}', well done!")
         else:
