@@ -1,6 +1,4 @@
-from fileinput import filename
 import os
-import math
 import random
 
 class Game():
@@ -360,4 +358,5 @@ class GuessTheWord():
         else:
             print(f"Ahah!\nUnfortunately you lost! The word I had in mind was: '{Player.chooseWord()}' ")
 
-GuessTheWord(Game, Player)
+if __name__ == "__main__":
+    GuessTheWord(Game, Player)
